@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dancing Frog Living Landscape</title>
+<meta name="description" content="A concept preview of a living landscape experience for Dancing Frog Habitat collective members.">
+<meta property="og:title" content="Dancing Frog Living Landscape">
+<meta property="og:description" content="A concept preview of a living landscape experience for Dancing Frog Habitat collective members.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://veyyil.github.io/Dancing-Frog-Living-Landscape-Demo/assets/og-image.jpg">
+<meta property="og:url" content="https://veyyil.github.io/Dancing-Frog-Living-Landscape-Demo/">
+<meta name="robots" content="noindex, nofollow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#233021">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== Design tokens ===== */
+:root{
+  --paper:#EDEADA; --paper-2:#E3DFCA; --card:#F5F2E6;
+  --ink:#233021; --ink-2:#4A5744; --ink-3:#7C8574;
+  --moss:#4E6B3A; --moss-2:#7F9A62; --wash:#A7BB88; --wash-2:#CCD6B1;
+  --stream:#4F8690; --stream-2:#A3C4C5;
+  --ochre:#A97C2F; --ochre-2:#E6D2A0; --bark:#7A5A3C;
+  --line:rgba(35,48,33,.14); --line-2:rgba(35,48,33,.28);
+  --on-moss:#F5F2E6;
+  --serif:"Newsreader","Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#161B15; --paper-2:#1E251C; --card:#212A1F;
+    --ink:#E6E5D4; --ink-2:#BFC4AF; --ink-3:#8E957F;
+    --moss:#9CBB7B; --moss-2:#7E9C61; --wash:#4D6A3B; --wash-2:#34472B;
+    --stream:#86BAC1; --stream-2:#3C676D;
+    --ochre:#D9AC5E; --ochre-2:#5E4A24; --bark:#C79E71;
+    --line:rgba(230,229,212,.12); --line-2:rgba(230,229,212,.26);
+    --on-moss:#161B15;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161B15; --paper-2:#1E251C; --card:#212A1F;
+  --ink:#E6E5D4; --ink-2:#BFC4AF; --ink-3:#8E957F;
+  --moss:#9CBB7B; --moss-2:#7E9C61; --wash:#4D6A3B; --wash-2:#34472B;
+  --stream:#86BAC1; --stream-2:#3C676D;
+  --ochre:#D9AC5E; --ochre-2:#5E4A24; --bark:#C79E71;
+  --line:rgba(230,229,212,.12); --line-2:rgba(230,229,212,.26);
+  --on-moss:#161B15;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+@media (max-width:640px){.wrap{padding:0 16px}}
+
+/* ===== Demo bar (presenter chrome, not product) ===== */
+.demobar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--paper-2);border-bottom:1px solid var(--line);font-family:var(--sans);font-size:13px;color:var(--ink-2)}
+.demobar .wrap{display:flex;gap:14px;align-items:center;justify-content:space-between;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
+.demobar .tag{display:flex;gap:10px;align-items:center}
+.pill-note{border:1px solid var(--ochre);color:var(--ochre);border-radius:999px;padding:2px 10px;font-size:12px;white-space:nowrap}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;padding:3px;background:var(--card);gap:2px}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:6px 13px;border-radius:999px;cursor:pointer;font-family:var(--sans);font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.linkbtn{background:none;border:0;padding:4px 2px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;color:var(--ink-2);font-family:var(--sans);font-size:13px}
+
+/* ===== Member header ===== */
+.mhead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:end;padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.mhead h1{font-size:clamp(36px,5.4vw,60px);line-height:1;font-weight:500;letter-spacing:-.015em;margin:0}
+.mhead .sub{font-style:italic;font-size:clamp(20px,2.4vw,25px);color:var(--moss);margin:8px 0 10px;font-weight:400}
+.mhead .lede{max-width:50ch;color:var(--ink-2);margin:0}
+.signed{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin-top:14px}
+.timebox{font-family:var(--sans)}
+.timebox .lbl{font-size:12.5px;color:var(--ink-3);margin-bottom:6px}
+.timeseg{display:flex;border:1px solid var(--line-2);border-radius:16px;background:var(--card);padding:4px;gap:4px}
+.timeseg button{border:0;background:transparent;border-radius:12px;padding:10px 18px;cursor:pointer;text-align:left;min-width:132px}
+.timeseg b{display:block;font-family:var(--serif);font-weight:500;font-size:21px;line-height:1.15}
+.timeseg span{display:block;font-size:12px;color:var(--ink-3)}
+.timeseg button[aria-pressed="true"]{background:var(--moss);color:var(--on-moss)}
+.timeseg button[aria-pressed="true"] span{color:var(--on-moss);opacity:.85}
+@media (max-width:760px){.mhead{grid-template-columns:1fr}.timeseg button{flex:1;min-width:0}}
+
+/* ===== Member grid ===== */
+.mgrid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr);gap:34px;padding:30px 0 10px}
+@media (max-width:940px){.mgrid{grid-template-columns:1fr}}
+.maparea{position:relative}
+@media (min-width:941px){.maparea{position:sticky;top:72px;align-self:start}}
+@media (max-width:640px){.mapcap{position:static;padding:12px 14px 0}.zlabel{font-size:30px;stroke-width:7px}.zlabel.muted{font-size:26px}.zlabel.small{font-size:22px}}
+.morebtn{margin-top:10px;border:1px solid var(--line-2);background:var(--card);border-radius:10px;padding:9px 14px;cursor:pointer;font-family:var(--sans);font-size:13.5px;color:var(--ink)}
+.mapcard{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.mapcard svg{display:block;width:100%;height:auto}
+.mapcap{position:absolute;left:18px;top:14px;font-style:italic;color:var(--ink-2);font-size:15px;pointer-events:none}
+.mapcap small{display:block;font-style:normal;font-family:var(--sans);font-size:11.5px;color:var(--ink-3)}
+.maphint{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin:10px 2px 0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 2px 0;font-family:var(--sans);font-size:12.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend svg{flex:none}
+
+/* map classes */
+.b-fill{fill:var(--paper-2)}
+.fi.tappable{cursor:pointer;border-radius:12px;transition:background .2s}
+.fi.tappable:hover{background:color-mix(in srgb,var(--card) 70%,transparent)}
+.fi.tappable:not(.open) .fi-text{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chev{margin-left:auto;font-size:12px;color:var(--moss);display:inline-flex;align-items:center;gap:4px}
+.chev::after{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.fi.open .chev::after{transform:translateY(2px) rotate(225deg)}
+.fi.open{grid-template-columns:minmax(0,1fr);background:var(--card);border:1px solid var(--line);padding:12px;margin:8px 0}
+.fi.open .fi-media .media{aspect-ratio:4/3;border-radius:12px}
+.fi.open .media.satbig svg{width:100%;height:100%;display:block}
+.fi.open .fi-title{font-size:24px;margin-top:10px}
+.fi.open .fi-text{font-size:18px;line-height:1.55;margin:8px 0 12px}
+.fi.open .ct-stamp{font-size:12px;padding:4px 9px}
+@media (max-width:640px){.fi.open .fi-title{font-size:21px}.fi.open .fi-text{font-size:16.5px}.fi.open{padding:10px;margin:6px -6px}}
+.mapsvg{position:relative}
+.viewas{color:var(--ink-3);font-size:12.5px}
+.sm{display:none}
+.sathead{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.sathead h2{margin:0}
+.satgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:980px}
+.satcap{font-family:var(--sans);font-size:12px;color:var(--ink-3);margin-top:4px}
+.section .ramp{margin-top:12px}
+.nudge{animation:nudge 1.8s ease-out infinite}
+@keyframes nudge{0%{box-shadow:0 0 0 0 rgba(185,138,59,.7)}70%{box-shadow:0 0 0 10px rgba(185,138,59,0)}100%{box-shadow:0 0 0 0 rgba(185,138,59,0)}}
+.zhit.nudge-zone{fill:#b98a3b;fill-opacity:.12;stroke:#b98a3b;stroke-width:3;animation:nzone 1.8s ease-in-out infinite}
+@keyframes nzone{50%{fill-opacity:.3}}
+@media (prefers-reduced-motion:reduce){.nudge{animation:none;box-shadow:0 0 0 3px rgba(185,138,59,.7)}.zhit.nudge-zone{animation:none}}
+@media (max-width:640px){
+  body{font-size:16px}
+  .demobar .wrap{gap:8px;padding-top:8px;padding-bottom:8px}
+  .demobar .brand{display:none}
+  .demobar .viewtag{width:100%;justify-content:space-between;gap:8px}
+  .demobar .seg button{padding:8px 12px;font-size:13px;white-space:nowrap}
+  .lg{display:none}.sm{display:inline}
+  .viewas,.linkbtn{white-space:nowrap}
+  .preview{padding:10px 12px}
+  .preview .fi{grid-template-columns:64px minmax(0,1fr);gap:10px}
+  .mhead{padding:26px 0 18px;gap:18px}
+  .mhead .sub{font-size:20px}
+  .signed{margin-top:8px}
+  .timeseg button{padding:10px 12px}
+  .timeseg b{font-size:19px}
+  .mgrid{padding-top:20px;gap:26px}
+  .mapcard{display:flex;flex-direction:column}
+  .mapcard .mapsvg{order:3}
+  .mapcap{order:1;padding:12px 14px 4px}
+  .basesw{position:static;order:2;align-self:flex-start;margin:4px 12px 8px}
+  .pop{width:220px;padding:10px}
+  .chip{padding:8px 12px;font-size:13px}
+  .legend{gap:6px 14px;font-size:12px}
+  .fi{grid-template-columns:84px minmax(0,1fr);gap:12px}
+  .fi-title{font-size:18px}
+  .fi-text{font-size:15.5px}
+  .satgrid{grid-template-columns:1fr}
+  .section{padding:28px 0;margin-top:16px}
+  .drawer{padding-left:18px;padding-right:18px}
+  .drawer h2{font-size:28px}
+  .chead{padding:24px 0 14px}
+  .process{font-size:13px;gap:8px 14px}
+  .detail{padding:16px}
+  .actions .btn{flex:1 1 auto;min-height:44px}
+  .crow .btn{min-height:40px}
+  .toast{flex-wrap:wrap;justify-content:center;text-align:center}
+}
+
+.disc{color:var(--ink-3);font-size:12px}
+@media (max-width:640px){.disc{display:none}}
+.layers{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 2px 0;font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+.layers span{margin-right:4px}
+.fi-title{font-size:20px;font-weight:500;line-height:1.2;margin:6px 0 2px}
+.process{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-family:var(--sans);font-size:13.5px;color:var(--ink-2)}
+.process b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--paper-2);color:var(--ink);font-size:11.5px;margin-right:7px;font-weight:600}
+.process strong{margin-left:auto;color:var(--moss);font-weight:600}
+@media (max-width:640px){.process strong{margin-left:0}}
+.checks{margin-top:20px;border-top:1px solid var(--line);padding-top:14px;display:grid;gap:10px}
+.crow{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;align-items:center;font-family:var(--sans);font-size:13.5px}
+.clbl{color:var(--ink-3)}
+.cval.ok{color:var(--moss);font-weight:500}.cval.pend{color:var(--ochre);font-weight:500}.cval.todo{color:var(--ink-2)}
+.cnote{margin:2px 0 0;font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+@media (max-width:640px){.crow{grid-template-columns:1fr auto}.clbl{grid-column:1/-1}}
+.preview{margin-top:18px;border:1px dashed var(--moss-2);border-radius:14px;padding:12px 16px;background:color-mix(in srgb,var(--wash-2) 25%,transparent)}
+.preview .lbl{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin-bottom:4px}
+.preview .fi{border-top:0;padding:8px 0 4px}
+.zlink[disabled]{cursor:default;text-decoration:none;color:var(--ink-2)}
+.basesw{position:absolute;right:14px;top:12px;z-index:3}
+.mapcard.sat .mapcap{color:#e3e8d2}
+.on-sat{background:#2c3a28}
+.on-sat .z-doc{fill:#cfe0a8;opacity:.42}
+.on-sat .z-doc-edge{stroke:#eef4d6;opacity:.9}
+.on-sat .z-part{fill:#e6ecc8;opacity:.22}
+.on-sat .hatch-line{stroke:#f2f5e4;opacity:.75}
+.on-sat .z-none{stroke:#f2f5e4;opacity:.85}
+.on-sat .contour{display:none}
+.on-sat .stream-under{opacity:.25}
+.on-sat .stream{stroke:#8fd3e0}
+.on-sat .trail{stroke:#f0c98a}
+.on-sat .boundary{stroke:#F5F2E6}
+.on-sat .zlabel{fill:#F5F2E6;stroke:rgba(20,28,18,.75)}
+.on-sat .zlabel.muted{fill:#e3e8d2}
+.on-sat .compass,.on-sat .compass-t{stroke:#e3e8d2;fill:none}
+.on-sat .compass-t{fill:#e3e8d2;stroke:none}
+.stip-dot{fill:var(--ink-3);opacity:.42}
+.stip-tick{stroke:var(--ink-3);stroke-width:1;opacity:.35;fill:none}
+.contour{fill:none;stroke:var(--ink-3);stroke-width:1;opacity:.22}
+.z-doc{fill:var(--wash);opacity:.85;filter:url(#wc)}
+.z-doc-edge{fill:none;stroke:var(--moss-2);stroke-width:2.2;opacity:.55;filter:url(#wc)}
+.z-part{fill:var(--wash-2);opacity:.8;filter:url(#wc)}
+.z-part-h{fill:url(#hatch);filter:url(#wc)}
+.hatch-line{stroke:var(--moss-2);stroke-width:1.4;opacity:.7}
+.z-none{fill:none;stroke:var(--ink-3);stroke-width:1.3;stroke-dasharray:2 7;stroke-linecap:round;opacity:.7}
+.stream-under{fill:none;stroke:var(--stream-2);stroke-width:10;stroke-linecap:round;opacity:.6;filter:url(#wc)}
+.stream{fill:none;stroke:var(--stream);stroke-width:2.6;stroke-linecap:round}
+.stream.approx{stroke-dasharray:1 7;stroke-width:2.4;opacity:.75}
+.trail{fill:none;stroke:var(--bark);stroke-width:2.1;stroke-dasharray:7 5;stroke-linecap:round}
+.boundary{fill:none;stroke:var(--ink);stroke-width:2.2;opacity:.8}
+.boundary2{fill:none;stroke:var(--ink);stroke-width:1;opacity:.35;filter:url(#wc)}
+.zlabel{font-family:var(--serif);font-size:18px;fill:var(--ink);paint-order:stroke;stroke:var(--paper-2);stroke-width:5px;stroke-linejoin:round;pointer-events:none}
+.zlabel.muted{font-style:italic;fill:var(--ink-3);font-size:16px}
+.zlabel.small{font-size:13px;font-family:var(--sans);fill:var(--ink-3)}
+.zhit{fill:transparent;cursor:pointer;outline:none}
+.zhit:hover,.zhit:focus-visible{fill:var(--ink);fill-opacity:.07}
+.zhit:focus-visible{stroke:var(--ochre);stroke-width:2}
+.mk{cursor:pointer;outline:none}
+.mk-obs{fill:var(--card);stroke:var(--ink);stroke-width:2}
+.mk-obs-in{fill:var(--ink)}
+.mk-prop{fill:var(--card);stroke:var(--bark);stroke-width:2}
+.mk-ct{fill:var(--bark)}
+.mk-ct-in{fill:var(--card)}
+.mk-gen{fill:var(--stream);fill-opacity:.12;stroke:var(--stream);stroke-width:1.5;stroke-dasharray:4 4}
+.mk:hover .mk-obs,.mk:focus-visible .mk-obs,.mk:hover .mk-prop,.mk:focus-visible .mk-prop{stroke:var(--ochre)}
+.mk:focus-visible .mk-ct,.mk:hover .mk-ct{fill:var(--ochre)}
+.mk-new{fill:none;stroke:var(--ochre);stroke-width:2}
+.compass{fill:none;stroke:var(--ink-3);stroke-width:1.2}
+.compass-t{font-family:var(--serif);font-style:italic;font-size:15px;fill:var(--ink-3)}
+.appear{animation:appear 1.1s ease both}
+@keyframes appear{from{opacity:0}}
+.pulse{animation:pulse 1.8s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulse{0%{opacity:.9;transform:scale(.6)}100%{opacity:0;transform:scale(2.2)}}
+@media (prefers-reduced-motion:reduce){.appear,.pulse{animation:none}}
+
+/* popover */
+.pop{position:absolute;z-index:5;width:260px;background:var(--card);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 10px 30px rgba(20,28,18,.18);padding:12px;transform:translate(-50%,calc(-100% - 16px))}
+.pop.below{transform:translate(-50%,16px)}
+.pop .media{border-radius:9px;aspect-ratio:16/10}
+.pop p{margin:8px 0 6px;font-size:15px;line-height:1.4}
+.pop .row{display:flex;justify-content:space-between;gap:8px;align-items:center;font-family:var(--sans);font-size:12px;color:var(--ink-3)}
+.pop .x{position:absolute;right:8px;top:6px;border:0;background:var(--card);border-radius:50%;width:26px;height:26px;cursor:pointer;color:var(--ink-2);font-size:16px;line-height:1}
+
+/* ===== Side column ===== */
+.side h2,.section h2{font-weight:500;font-size:26px;line-height:1.15;margin:0 0 6px;letter-spacing:-.005em}
+.side .note{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin:0 0 16px}
+.progress{padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.bar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:var(--paper-2);border:1px solid var(--line);margin:14px 0 10px}
+.bar i{display:block;height:100%;transition:width .9s ease}
+.bar .b1{background:var(--moss-2)}
+.bar .b2{background:repeating-linear-gradient(135deg,var(--wash-2) 0 4px,var(--wash) 4px 7px)}
+.progress p{margin:0;color:var(--ink-2)}
+.progress p strong{color:var(--ink);font-weight:600}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:12px 18px;margin:18px 0 0;font-family:var(--sans)}
+.facts div{border-top:1px solid var(--line);padding-top:8px}
+.facts dt{font-size:12.5px;color:var(--ink-3)}
+.facts dd{margin:2px 0 0;font-family:var(--serif);font-size:24px;font-weight:500}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* feed */
+.feed{list-style:none;margin:0;padding:0}
+.fi{display:grid;grid-template-columns:112px minmax(0,1fr);gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.fi:first-child{border-top:0;padding-top:4px}
+.fi .media{aspect-ratio:1/1;border-radius:10px}
+.fi.no-media{grid-template-columns:minmax(0,1fr)}
+.fi-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+.kind{color:var(--ink);font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.kind::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--k,var(--ink-3))}
+.k-camera{--k:var(--bark)}.k-field{--k:var(--moss)}.k-explore{--k:var(--moss-2)}.k-research{--k:var(--stream)}.k-property{--k:var(--ochre)}.k-landscape{--k:var(--wash)}
+.fi-text{margin:5px 0 8px;font-size:16.5px;line-height:1.45}
+.fi-foot{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+.zlink{border:0;background:none;padding:0;cursor:pointer;color:var(--moss);text-decoration:underline;text-underline-offset:3px;font-family:var(--sans);font-size:12.5px}
+.ver{display:inline-flex;align-items:center;gap:5px}
+.ver.ok{color:var(--moss)}
+.ver.pend{color:var(--ochre)}
+.ver.gen{color:var(--stream)}
+.newtag{background:var(--ochre);color:var(--paper);border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:500}
+.fi.is-new{background:linear-gradient(90deg,color-mix(in srgb,var(--ochre-2) 45%,transparent),transparent 70%);border-radius:12px;padding-left:10px;padding-right:6px}
+.empty{font-style:italic;color:var(--ink-3);padding:10px 0}
+
+/* media and placeholders */
+.media{position:relative;margin:0;overflow:hidden;background:var(--paper-2)}
+.media img{width:100%;height:100%;object-fit:cover}
+.ph{display:flex;flex-direction:column;justify-content:flex-end;padding:8px;background:
+  radial-gradient(120% 90% at 20% 10%,color-mix(in srgb,var(--wash) 70%,transparent),transparent 60%),
+  radial-gradient(90% 80% at 85% 90%,color-mix(in srgb,var(--moss-2) 55%,transparent),transparent 65%),
+  var(--wash-2);
+  border:1px dashed var(--line-2)}
+.ph.is-ct{background:radial-gradient(80% 70% at 50% 40%,#8a8f86,#3b3f3a 75%);border-color:#555}
+.ph-id{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--ink);background:color-mix(in srgb,var(--card) 80%,transparent);align-self:flex-start;border-radius:5px;padding:1px 5px;word-break:break-all}
+.ph-hint{font-family:var(--sans);font-size:11.5px;color:var(--ink-2);margin-top:4px;background:color-mix(in srgb,var(--card) 70%,transparent);align-self:flex-start;border-radius:5px;padding:1px 5px}
+.ph.is-ct .ph-hint{color:#eee;background:rgba(0,0,0,.35)}
+.ph.is-ct .ph-id{color:#111;background:rgba(235,235,230,.85)}
+.ct-stamp{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.62);color:#f2f2ea;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;padding:3px 7px;letter-spacing:.02em;white-space:nowrap;overflow:hidden}
+.ph .ct-stamp~.ph-hint,.ph.is-ct{padding-bottom:26px}
+
+/* ===== Sections below ===== */
+.section{padding:38px 0;border-top:1px solid var(--line);margin-top:26px}
+.satwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(240px,.9fr);gap:22px;align-items:start}
+@media (max-width:860px){.satwrap{grid-template-columns:1fr 1fr}.satwrap .satcopy{grid-column:1/-1}}
+.satfig{margin:0}
+.satfig svg{width:100%;height:auto;display:block;border-radius:12px;background:var(--paper-2)}
+.satfig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin-top:6px}
+.sat-outline{fill:none;stroke:#F5F2E6;stroke-width:4;opacity:.95}
+.satfig svg,.minisat svg,.satmedia svg{background:#2c3a28}
+.sqsat svg{width:100%;height:100%;display:block}
+.satmedia{border-radius:12px;overflow:hidden}
+.satmedia svg{display:block;width:100%;height:auto}
+.ramp.chg i{background:linear-gradient(90deg,#c9ccc4,#8fbf6a,#2f7a2a)}
+.satswitch{margin:4px 0 14px}
+.satcopy p{margin:0 0 10px;color:var(--ink-2)}
+.ramp{display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;color:var(--ink-3)}
+.ramp i{display:block;width:110px;height:8px;border-radius:4px;background:linear-gradient(90deg,#CDBB86,#8FA35E,#3F6A36)}
+
+.growth{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.growth li{position:relative;padding:22px 20px 0 0}
+.growth li::before{content:"";position:absolute;top:6px;left:0;right:0;height:1px;background:var(--line-2)}
+.growth li::after{content:"";position:absolute;top:0;left:0;width:13px;height:13px;border-radius:50%;background:var(--paper);border:2px solid var(--ink-3)}
+.growth li.now::after{background:var(--moss);border-color:var(--moss)}
+.growth h3{font-size:19px;font-weight:500;margin:0 0 6px}
+.growth p{margin:0;font-family:var(--sans);font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.growth li.later h3,.growth li.later p{color:var(--ink-3)}
+@media (max-width:760px){.growth{grid-template-columns:1fr}.growth li{padding:0 0 20px 28px}.growth li::before{top:0;bottom:0;left:6px;right:auto;width:1px;height:auto}.growth li::after{top:4px}}
+
+.foot{padding:26px 0 48px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px;color:var(--ink-3);max-width:80ch}
+
+/* ===== Drawer ===== */
+.backdrop{position:fixed;inset:0;background:rgba(18,24,16,.35);z-index:50}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(580px,100vw);background:var(--paper);z-index:51;overflow-y:auto;border-left:1px solid var(--line-2);padding:calc(18px + env(safe-area-inset-top,0px)) 26px calc(40px + env(safe-area-inset-bottom,0px));animation:slidein .35s ease both}
+@keyframes slidein{from{transform:translateX(30px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.drawer{animation:none}}
+.drawer .close{position:sticky;top:0;float:right;border:1px solid var(--line-2);background:var(--card);border-radius:999px;padding:6px 14px;cursor:pointer;font-family:var(--sans);font-size:13px;z-index:2}
+.drawer h2{font-size:34px;font-weight:500;margin:6px 0 4px;line-height:1.05}
+.drawer .status{font-family:var(--sans);font-size:13px;color:var(--ink-3);margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line-2)}
+.sw.doc{background:var(--wash)}
+.sw.part{background:repeating-linear-gradient(135deg,var(--wash-2) 0 3px,var(--moss-2) 3px 4px)}
+.sw.none{background:var(--paper-2);border-style:dashed}
+.drawer .hero{aspect-ratio:16/9;border-radius:14px;margin:0 0 16px}
+.drawer .desc{margin:0 0 20px;color:var(--ink-2)}
+.drawer h3{font-size:19px;font-weight:500;margin:24px 0 8px}
+.dl{list-style:none;margin:0;padding:0;font-size:16px}
+.dl li{padding:7px 0;border-top:1px solid var(--line)}
+.dl li small{display:block;font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+.timeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:1px solid var(--line-2)}
+.timeline li{position:relative;padding:0 0 14px 6px}
+.timeline li::before{content:"";position:absolute;left:-24px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--moss);border:2px solid var(--paper)}
+.timeline li.future::before{background:var(--paper);border:1.5px dashed var(--ink-3)}
+.timeline time{display:block;font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+.timeline li.future{color:var(--ink-3);font-style:italic}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gallery .media{aspect-ratio:1/1;border-radius:10px}
+.callout{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--ink-2);font-size:16px}
+.minisat{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center}
+.minisat svg{width:100%;height:auto;border-radius:8px;background:var(--paper-2)}
+
+/* ===== Control view ===== */
+.chead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;padding:34px 0 20px;border-bottom:1px solid var(--line)}
+.chead h1{font-size:clamp(30px,4vw,44px);font-weight:500;margin:0;line-height:1.05}
+.chead p{margin:6px 0 0;color:var(--ink-2);max-width:60ch}
+.cgrid{display:grid;grid-template-columns:minmax(280px,380px) minmax(0,1fr);gap:28px;padding:24px 0 60px}
+@media (max-width:900px){.cgrid{grid-template-columns:1fr}}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{border:1px solid var(--line-2);background:var(--card);border-radius:999px;padding:5px 12px;font-family:var(--sans);font-size:12.5px;cursor:pointer;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.queue{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.qitem{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:transparent;padding:13px 14px;cursor:pointer}
+.queue li:first-child .qitem{border-top:0}
+.qitem[aria-current="true"]{background:color-mix(in srgb,var(--wash-2) 55%,transparent)}
+.qicon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--paper-2);color:var(--ink-2)}
+.qt{font-size:16px;line-height:1.3;display:block}
+.qm{font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.st{border-radius:999px;padding:1px 8px;font-family:var(--sans);font-size:11.5px;font-weight:500;border:1px solid transparent;white-space:nowrap}
+.st.new{background:var(--ochre-2);color:var(--ink)}
+.st.verified{border-color:var(--moss);color:var(--moss)}
+.st.pending{border-color:var(--ochre);color:var(--ochre)}
+.st.published{background:var(--moss);color:var(--on-moss)}
+.st.internal{background:var(--paper-2);color:var(--ink-2);border-color:var(--line-2)}
+.detail{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.dtop{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px}
+@media (max-width:640px){.dtop{grid-template-columns:1fr}}
+.detail .media{aspect-ratio:4/3;border-radius:12px}
+.detail h2{font-size:26px;font-weight:500;margin:0 0 6px;line-height:1.15}
+.meta{margin:12px 0 0;font-family:var(--sans);font-size:13px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px}
+.meta dt{color:var(--ink-3)}
+.meta dd{margin:0;color:var(--ink)}
+.ai{margin-top:14px;border:1px dashed var(--ochre);border-radius:12px;padding:10px 12px;font-family:var(--sans);font-size:13px;color:var(--ink-2)}
+.ai strong{color:var(--ink);font-weight:600}
+.memberbox{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+.memberbox .lbl{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin-bottom:6px}
+.memberbox p{margin:0;font-size:17px}
+.memberbox textarea{width:100%;min-height:90px;font-family:var(--serif);font-size:16px;padding:10px;border:1px solid var(--line-2);border-radius:10px;background:var(--paper);color:var(--ink)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.btn{font-family:var(--sans);font-size:13.5px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer;line-height:1.2}
+.btn:hover{border-color:var(--ink-3)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary{background:var(--moss);border-color:var(--moss);color:var(--on-moss);font-weight:500}
+.btn.quiet{border-color:transparent;background:transparent;text-decoration:underline;text-underline-offset:3px;color:var(--ink-2)}
+.btn[disabled],.btn[aria-disabled="true"]{opacity:.5}
+.hint{font-family:var(--sans);font-size:12.5px;color:var(--ochre);margin-top:10px}
+.log{list-style:none;margin:18px 0 0;padding:14px 0 0;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+.log li{padding:2px 0}
+.minimap{margin:14px 0 0}
+.minimap svg{width:100%;height:auto;border-radius:10px;background:#2c3a28;display:block}
+.minimap figcaption{font-family:var(--sans);font-size:12px;color:var(--ink-3);margin-top:4px}
+
+/* toast */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--ink);color:var(--paper);border-radius:14px;padding:12px 16px;display:flex;gap:14px;align-items:center;font-family:var(--sans);font-size:14px;box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px)}
+.toast button{background:transparent;border:1px solid color-mix(in srgb,var(--paper) 50%,transparent);color:var(--paper);border-radius:9px;padding:6px 10px;cursor:pointer;font-family:var(--sans);font-size:13px;white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+"use strict";
+
+/* =====================================================================
+   1. IMAGE SLOTS
+   Each key matches an Image ID in IMAGE_PROMPTS.md.
+   Leave a value empty to show the labelled placeholder.
+   To use a real image, paste a data URI here, for example
+   IMG_03_GAUR_CT: "data:image/jpeg;base64,/9j/4AAQ...".
+   ===================================================================== */
+const IMAGES = {
+"IMG_13_SAT_DRY_TRUE": "assets/IMG_13_SAT_DRY_TRUE.jpg",
+"IMG_08_STREAM_ZONE": "assets/IMG_08_STREAM_ZONE.jpg",
+"IMG_05_AMPHIBIAN_SURVEY": "assets/IMG_05_AMPHIBIAN_SURVEY.jpg",
+"IMG_09_MUNTJAC_CT": "assets/IMG_09_MUNTJAC_CT.jpg",
+"IMG_01_MEMBER_HERO": "assets/IMG_01_MEMBER_HERO.jpg",
+"IMG_03_GAUR_CT": "assets/IMG_03_GAUR_CT.jpg",
+"IMG_12_CT_UNCLEAR": "assets/IMG_12_CT_UNCLEAR.jpg",
+"IMG_15_SAT_NDVI_WET": "assets/IMG_15_SAT_NDVI_WET.jpg",
+"IMG_10_GIANT_SQUIRREL": "assets/IMG_10_GIANT_SQUIRREL.jpg",
+"IMG_06_FOUNDATION": "assets/IMG_06_FOUNDATION.jpg",
+"IMG_11_RESIDENCE_WALLS": "assets/IMG_11_RESIDENCE_WALLS.jpg",
+"IMG_14_SAT_WET_TRUE": "assets/IMG_14_SAT_WET_TRUE.jpg",
+"IMG_02_STREAM_SECTION": "assets/IMG_02_STREAM_SECTION.jpg",
+"IMG_16_SAT_CHANGE": "assets/IMG_16_SAT_CHANGE.jpg",
+"IMG_04_BALSAM": "assets/IMG_04_BALSAM.jpg",
+"IMG_07_TRAIL": "assets/IMG_07_TRAIL.jpg"
+};
+/* Smaller versions for thumbnails, same keys */
+const THUMBS = {
+"IMG_13_SAT_DRY_TRUE": "assets/thumbs/IMG_13_SAT_DRY_TRUE.jpg",
+"IMG_08_STREAM_ZONE": "assets/thumbs/IMG_08_STREAM_ZONE.jpg",
+"IMG_05_AMPHIBIAN_SURVEY": "assets/thumbs/IMG_05_AMPHIBIAN_SURVEY.jpg",
+"IMG_09_MUNTJAC_CT": "assets/thumbs/IMG_09_MUNTJAC_CT.jpg",
+"IMG_01_MEMBER_HERO": "assets/thumbs/IMG_01_MEMBER_HERO.jpg",
+"IMG_03_GAUR_CT": "assets/thumbs/IMG_03_GAUR_CT.jpg",
+"IMG_12_CT_UNCLEAR": "assets/thumbs/IMG_12_CT_UNCLEAR.jpg",
+"IMG_15_SAT_NDVI_WET": "assets/thumbs/IMG_15_SAT_NDVI_WET.jpg",
+"IMG_10_GIANT_SQUIRREL": "assets/thumbs/IMG_10_GIANT_SQUIRREL.jpg",
+"IMG_06_FOUNDATION": "assets/thumbs/IMG_06_FOUNDATION.jpg",
+"IMG_11_RESIDENCE_WALLS": "assets/thumbs/IMG_11_RESIDENCE_WALLS.jpg",
+"IMG_14_SAT_WET_TRUE": "assets/thumbs/IMG_14_SAT_WET_TRUE.jpg",
+"IMG_02_STREAM_SECTION": "assets/thumbs/IMG_02_STREAM_SECTION.jpg",
+"IMG_16_SAT_CHANGE": "assets/thumbs/IMG_16_SAT_CHANGE.jpg",
+"IMG_04_BALSAM": "assets/thumbs/IMG_04_BALSAM.jpg",
+"IMG_07_TRAIL": "assets/thumbs/IMG_07_TRAIL.jpg"
+};
+const IMAGE_META = {
+  IMG_01_MEMBER_HERO:{alt:"Dense evergreen forest in the Pushpagiri foothills",kind:"photo",hint:"Dense Western Ghats forest"},
+  IMG_02_STREAM_SECTION:{alt:"A headwater stream section in dense forest",kind:"photo",hint:"Headwater stream section"},
+  IMG_03_GAUR_CT:{alt:"Camera trap frame of a gaur on a forest trail at dawn",kind:"ct",hint:"Gaur on trail"},
+  IMG_04_BALSAM:{alt:"Pink wild balsam flowering beside a damp trail",kind:"photo",hint:"Wild balsam in flower"},
+  IMG_05_AMPHIBIAN_SURVEY:{alt:"Researcher photographing frogs on stream boulders at night",kind:"photo",hint:"Night amphibian survey"},
+  IMG_06_FOUNDATION:{alt:"Foundation stage construction in a forest clearing",kind:"photo",hint:"Residence foundations"},
+  IMG_07_TRAIL:{alt:"A narrow forest trail through dense undergrowth",kind:"photo",hint:"Forest trail"},
+  IMG_08_STREAM_ZONE:{alt:"Wide view of the stream zone under forest canopy",kind:"photo",hint:"Stream zone landscape"},
+  IMG_09_MUNTJAC_CT:{alt:"Camera trap frame of an Indian muntjac at dusk",kind:"ct",hint:"Muntjac at dusk"},
+  IMG_10_GIANT_SQUIRREL:{alt:"Malabar giant squirrel feeding in the canopy",kind:"photo",hint:"Malabar giant squirrel"},
+  IMG_11_RESIDENCE_WALLS:{alt:"Residence walls rising in a forest clearing",kind:"photo",hint:"Residence walls rising"},
+  IMG_12_CT_UNCLEAR:{alt:"Blurred night camera trap frame of a deer",kind:"ct",hint:"Unclear deer at night"},
+  IMG_13_SAT_DRY_TRUE:{alt:"Illustrative seasonal satellite view, before the monsoon",kind:"sat",hint:"Satellite, dry season"},
+  IMG_14_SAT_WET_TRUE:{alt:"Illustrative seasonal satellite view, after the monsoon",kind:"sat",hint:"Satellite, after monsoon"},
+  IMG_15_SAT_NDVI_WET:{alt:"Illustrative greenness view, after the monsoon",kind:"sat",hint:"Greenness map"},
+  IMG_16_SAT_CHANGE:{alt:"Illustrative vegetation change view",kind:"sat",hint:"Change map"}
+};
+
+/* =====================================================================
+   2. GEOMETRY (schematic map in a 1000 x 680 space)
+   ===================================================================== */
+const W=1000,H=680;
+function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const r1=n=>Math.round(n*10)/10;
+function closedPath(p){const n=p.length;let d=`M${r1(p[0][0])},${r1(p[0][1])}`;for(let i=0;i<n;i++){const p0=p[(i-1+n)%n],a=p[i],b=p[(i+1)%n],p3=p[(i+2)%n];const c1=[a[0]+(b[0]-p0[0])/6,a[1]+(b[1]-p0[1])/6],c2=[b[0]-(p3[0]-a[0])/6,b[1]-(p3[1]-a[1])/6];d+=` C${r1(c1[0])},${r1(c1[1])} ${r1(c2[0])},${r1(c2[1])} ${r1(b[0])},${r1(b[1])}`}return d+"Z"}
+function openPath(p){const n=p.length;let d=`M${r1(p[0][0])},${r1(p[0][1])}`;for(let i=0;i<n-1;i++){const p0=p[Math.max(0,i-1)],a=p[i],b=p[i+1],p3=p[Math.min(n-1,i+2)];const c1=[a[0]+(b[0]-p0[0])/6,a[1]+(b[1]-p0[1])/6],c2=[b[0]-(p3[0]-a[0])/6,b[1]-(p3[1]-a[1])/6];d+=` C${r1(c1[0])},${r1(c1[1])} ${r1(c2[0])},${r1(c2[1])} ${r1(b[0])},${r1(b[1])}`}return d}
+function blob(cx,cy,rx,ry,rot,seed){const r=rng(seed),n=11,pts=[],c=Math.cos(rot*Math.PI/180),s=Math.sin(rot*Math.PI/180);for(let i=0;i<n;i++){const a=i/n*Math.PI*2,k=1+(r()*2-1)*.17;const x=rx*Math.cos(a)*k,y=ry*Math.sin(a)*k;pts.push([cx+x*c-y*s,cy+x*s+y*c])}return closedPath(pts)}
+
+const BOUNDARY=[[90,210],[180,110],[330,72],[480,96],[610,62],[760,92],[890,170],[932,300],[902,452],[820,560],[680,622],[520,642],[360,612],[220,562],[120,472],[70,340]];
+const BPATH=closedPath(BOUNDARY);
+const CONTOURS=[[[40,250],[250,190],[450,170],[650,150],[960,200]],[[40,330],[260,272],[470,242],[660,232],[960,282]],[[80,470],[300,382],[480,332],[700,322],[960,382]],[[160,600],[380,522],[600,502],[860,522]]];
+
+/* Zones follow the names on Dancing Frog Habitat's published site map. Positions are schematic. */
+const ZONES=[
+ {id:"north",name:"Northern area",shape:[600,150,250,70,-4,29],label:[650,150],status:{1:"none",12:"none"}},
+ {id:"stream",name:"The Stream",shape:[600,440,58,190,-27,11],label:[650,560],status:{1:"part",12:"doc"}},
+ {id:"groves",name:"Sacred Groves",shape:[765,485,80,62,-10,19],label:[790,520],status:{1:"none",12:"part"}},
+ {id:"ravine",name:"Eastern area",shape:[800,315,78,62,20,23],label:[820,290],status:{1:"none",12:"part"}},
+ {id:"trek",name:"Trekking Trail",shape:[220,345,70,92,10,17],label:[210,262],status:{1:"part",12:"doc"}},
+ {id:"canopy",name:"Canopy Walk",shape:[425,385,74,56,-15,13],label:[410,452],status:{1:"part",12:"doc"}},
+ {id:"camping",name:"Camping Site",shape:[468,262,46,34,15,9],label:[418,232],status:{1:"part",12:"doc"}},
+ {id:"residences",name:"Future residences",shape:[228,517,56,40,-10,7],label:[236,580],status:{1:"doc",12:"doc"}},
+ {id:"arena",name:"Interpretation Arena",shape:[340,540,52,34,-10,3],label:[378,512],status:{1:"doc",12:"doc"}},
+ {id:"nursery",name:"Nursery",shape:[140,430,40,30,8,5],label:[140,480],status:{1:"doc",12:"doc"}}
+];
+ZONES.forEach(z=>{z.path=blob(...z.shape)});
+const ZMAP=Object.fromEntries(ZONES.map(z=>[z.id,z]));
+
+const STREAMS=[
+ {id:"s1",name:"Main stream, lower section",zone:"stream",m:1,pts:[[540,300],[570,350],[600,398],[630,440],[655,490],[680,545],[700,590],[718,640]]},
+ {id:"s2",name:"Main stream, upper section",zone:"stream",m:12,approxBefore:true,pts:[[398,70],[440,110],[475,150],[510,195],[505,250],[540,300]]},
+ {id:"s3",name:"Eastern side stream",zone:"ravine",m:12,pts:[[870,290],[790,330],[700,375],[600,398]]}
+];
+const TRAILS=[
+ {id:"t1",name:"Main trail",km:1.1,zone:"arena",zones:["arena","residences","canopy","stream"],m:1,pts:[[262,604],[318,560],[270,515],[340,470],[430,400],[510,360],[556,345]]},
+ {id:"t2",name:"Nursery path",km:0.3,zone:"nursery",zones:["nursery"],m:1,pts:[[270,515],[190,470],[145,432]]},
+ {id:"t3",name:"Canopy loop",km:0.8,zone:"canopy",zones:["canopy"],m:12,pts:[[430,400],[380,375],[410,335],[470,350],[466,392],[432,400]]},
+ {id:"t4",name:"Upper stream trail",km:0.7,zone:"stream",zones:["stream","camping","north"],m:12,pts:[[556,345],[522,292],[486,240],[462,180]]},
+ {id:"t5",name:"Sacred Groves route",km:1.2,zone:"groves",zones:["groves"],m:12,pts:[[556,345],[640,402],[720,460],[790,500]]},
+ {id:"t6",name:"Trekking route",km:2.1,zone:"trek",zones:["trek"],m:12,pts:[[318,560],[210,470],[180,380],[222,295],[320,235]]}
+];
+const CTS=[
+ {id:"CT01",name:"Camera trap 01",zone:"stream",m:1,at:[556,345],note:"Near the stream crossing on the main trail"},
+ {id:"CT02",name:"Camera trap 02",zone:"canopy",m:1,at:[445,365],note:"Lower Canopy Walk trail"},
+ {id:"CT03",name:"Camera trap 03",zone:"groves",m:12,at:[722,460],note:"Sacred Groves route"},
+ {id:"CT04",name:"Camera trap 04",zone:"trek",m:12,at:[196,335],note:"Trekking route, upper bend"},
+ {id:"CT05",name:"Camera trap 05",zone:"ravine",m:12,at:[780,305],note:"Eastern side, above the side stream"}
+];
+
+/* =====================================================================
+   3. ILLUSTRATIVE CONTENT (all representative, none recorded)
+   m: 1 means visible from Month 1, 12 means visible only by Month 12
+   ===================================================================== */
+const KIND={camera:"Camera trap highlight",field:"Field observation",explore:"Exploration update",research:"Research visit",property:"Property update",landscape:"Landscape update"};
+/* verify "ok" = record checked by Mycelium. idf = species identification: "conf" confirmed, "pend" pending, absent when no species is involved */
+const FEED=[
+ {id:"F01",kind:"explore",date:"2026-09-18",m:1,source:"Staff walk",zone:"stream",img:"IMG_02_STREAM_SECTION",verify:"ok",at:[622,428],title:"A stream enters the record",text:"A 400 m section of the stream between the Camping Site and Canopy Walk was walked, photographed and added to the map."},
+ {id:"F02",kind:"camera",date:"2026-10-04",m:1,source:"Camera trap 01",zone:"stream",img:"IMG_03_GAUR_CT",stamp:"CT01  05:42  04/10/2026  21°C",verify:"ok",idf:"conf",ct:"CT01",title:"A quiet visitor at dawn",text:"A gaur walked past camera trap 01 near the stream crossing, just before dawn. One encounter, not a count of animals."},
+ {id:"F03",kind:"property",date:"2026-10-15",m:1,source:"Site visit",zone:"residences",img:"IMG_06_FOUNDATION",verify:"ok",at:[216,506],title:"The first foundations",text:"Foundation work continues at the future residences. Plinth work is complete on the first two plots."},
+ {id:"F04",kind:"research",date:"2026-11-21",m:12,source:"Visiting research team",zone:"stream",img:"IMG_05_AMPHIBIAN_SURVEY",verify:"ok",idf:"pend",gen:true,title:"Listening along the stream",text:"A night survey of amphibians along the stream boulders. Several frogs were photographed, and their identifications are being confirmed with the researchers."},
+ {id:"F05",kind:"explore",date:"2026-12-09",m:12,source:"Staff walk",zone:"stream",img:"IMG_07_TRAIL",verify:"ok",at:[488,212],title:"Further upstream",text:"An additional 700 m of trail mapped along the upper stream, towards the north of the property."},
+ {id:"F06",kind:"explore",date:"2027-01-17",m:12,source:"Staff walk",zone:"groves",img:"IMG_01_MEMBER_HERO",verify:"ok",at:[696,444],title:"Into the Sacred Groves",text:"The first mapped route into the Sacred Groves. The area is now partly documented."},
+ {id:"F07",kind:"camera",date:"2027-02-26",m:12,source:"Camera trap 03",zone:"groves",img:"IMG_09_MUNTJAC_CT",stamp:"CT03  18:27  26/02/2027  24°C",verify:"ok",idf:"conf",ct:"CT03",title:"A barking deer at dusk",text:"An Indian muntjac crossing the Sacred Groves route at dusk. A single record, not a population estimate."},
+ {id:"F08",kind:"field",date:"2027-03-12",m:12,source:"Staff walk",zone:"canopy",img:"IMG_10_GIANT_SQUIRREL",verify:"ok",idf:"conf",at:[398,398],title:"High in the canopy",text:"A Malabar giant squirrel feeding high above the loop trail."},
+ {id:"F09",kind:"property",date:"2027-05-20",m:12,source:"Site visit",zone:"residences",img:"IMG_11_RESIDENCE_WALLS",verify:"ok",at:[242,530],title:"Walls before the rains",text:"Walls are rising on the first two residences, ahead of the monsoon."},
+ {id:"F10",kind:"explore",date:"2027-07-08",m:12,source:"Staff walk",zone:"ravine",img:"IMG_02_STREAM_SECTION",verify:"ok",at:[752,345],title:"A side stream appears",text:"A previously unmapped side stream on the eastern side was followed and added to the map. It joins the main stream at the valley bend."},
+ {id:"F11",kind:"research",date:"2027-08-14",m:12,source:"Visiting research team",zone:"stream",img:"IMG_05_AMPHIBIAN_SURVEY",verify:"ok",idf:"pend",gen:true,title:"Back to the boulders",text:"A second monsoon amphibian survey. The team is comparing results with the November survey."},
+ {id:"F12",kind:"landscape",date:"2027-09-10",m:12,source:"Satellite imagery",zone:"north",img:null,sat:true,verify:"ok",title:"The forest after the rains",text:"Vegetation greened strongly after the monsoon, most clearly along the stream corridor."}
+];
+
+const ZONE_INFO={
+ stream:{img:"IMG_08_STREAM_ZONE",desc:"A headwater stream that runs through the property from the north, past the Camping Site and Canopy Walk. It is the most documented part of the landscape so far.",
+  research:[{m:12,t:"November 2026. Night amphibian survey along the stream boulders. Identifications pending with the researchers."},{m:12,t:"August 2027. Second monsoon survey, comparing with November."}],
+  season:{1:"Satellite context builds here over time. The first seasonal comparison becomes possible after one full season.",12:"The stream corridor shows the strongest post monsoon greening on the property, and stays greener than its surroundings through the dry months."},
+  hist:[{d:"2026-09-18",m:1,t:"Stream section documented between the Camping Site and Canopy Walk."},{d:"2026-10-04",m:1,t:"Gaur recorded by camera trap 01 near the stream crossing."},{d:"2026-11-21",m:12,t:"Research team records amphibian observations along the stream."},{d:"2026-12-09",m:12,t:"Additional trail segment mapped along the upper stream."},{d:"2027-07-08",m:12,t:"A side stream from the east found to join at the valley bend."},{d:"2027-09-10",m:12,t:"Strong post monsoon greening along the stream corridor."}]},
+ canopy:{img:"IMG_10_GIANT_SQUIRREL",desc:"Tall evergreen forest with a closed canopy, beside the stream.",hist:[{d:"2026-10-02",m:1,t:"Camera trap 02 placed on the lower trail."},{d:"2026-12-20",m:12,t:"Canopy loop trail mapped."},{d:"2027-03-12",m:12,t:"Malabar giant squirrel recorded feeding in the canopy."}]},
+ trek:{img:"IMG_07_TRAIL",desc:"The longer route along the western side of the property.",hist:[{d:"2026-09-24",m:1,t:"Lower section of the trail walked and photographed."},{d:"2027-02-11",m:12,t:"Full trekking route mapped, 2.1 km."}]},
+ camping:{img:"IMG_02_STREAM_SECTION",desc:"A small clearing near the stream.",hist:[{d:"2026-09-18",m:1,t:"Clearing edge photographed during the stream walk."},{d:"2027-01-05",m:12,t:"Clearing and its approach fully mapped."}]},
+ residences:{img:"IMG_06_FOUNDATION",desc:"The plots where collective members' homes are being built.",hist:[{d:"2026-10-15",m:1,t:"Plinth work complete on the first two plots."},{d:"2027-05-20",m:12,t:"Walls rising on the first two residences."}]},
+ arena:{img:"IMG_07_TRAIL",desc:"The planned learning space, which will hold the research lab and field station.",hist:[{d:"2026-09-06",m:1,t:"Arena site walked and mapped."},{d:"2027-04-18",m:12,t:"Field station site photographed for the construction record."}]},
+ nursery:{img:"IMG_01_MEMBER_HERO",desc:"A sheltered patch set aside for raising native saplings for restoration.",hist:[{d:"2026-09-10",m:1,t:"Nursery area walked and mapped."},{d:"2027-06-02",m:12,t:"First native saplings recorded in the nursery beds."}]},
+ groves:{img:"IMG_01_MEMBER_HERO",desc:"Old growth forest patches.",hist:[{d:"2027-01-17",m:12,t:"First mapped route into the Sacred Groves."},{d:"2027-02-26",m:12,t:"Indian muntjac recorded by camera trap 03."}]},
+ ravine:{img:"IMG_02_STREAM_SECTION",desc:"A part of the property on its eastern side that has only begun to be explored.",hist:[{d:"2027-06-20",m:12,t:"Camera trap 05 placed on the eastern side."},{d:"2027-07-08",m:12,t:"A previously unmapped side stream followed and mapped."}]},
+ north:{img:"IMG_01_MEMBER_HERO",desc:"The northern part of the property, not yet explored on foot.",season:{1:"Satellite imagery is the only regular view of this area for now.",12:"Broad post monsoon greening is visible here from satellite, even though no one has surveyed this area on foot yet."},hist:[{d:"2027-09-10",m:12,t:"Post monsoon greening visible in satellite imagery."}]}
+};
+
+const STATS={1:{doc:15,part:10,obs:6,species:3,ct:2,trail:1.4},12:{doc:40,part:20,obs:48,species:23,ct:37,trail:6.2}};
+
+/* Internal records waiting in the Mycelium team view.
+   verified = the record itself has been checked. idState = species identification: "pending", "confirmed" or "na" */
+const RECORDS0=[
+ {id:"R1",kind:"field",title:"Flowering wild balsam",memberTitle:"Balsam after the rains",time:"Today, 07:48",by:"Field staff, patrol walk",source:"Staff walk",zone:"trek",at:[204,408],gps:"12.6xx° N, 75.7xx° E",acc:"± 6 m",img:"IMG_04_BALSAM",
+  note:"Pink balsam flowering in a damp patch beside the trail. Around 30 plants. Photo taken from the trail edge.",
+  ident:"Suggested by field staff: Impatiens sp.",
+  caption:"A patch of wild balsam flowering beside the Trekking Trail after the rains. The species is still to be confirmed.",
+  status:"new",verified:false,idState:"pending",hideLoc:false,log:["Received from field capture app, 07:52"]},
+ {id:"R2",kind:"camera",title:"Night frame, Canopy Walk",memberTitle:"A night visitor on Canopy Walk",time:"Yesterday, 02:13",by:"Camera trap 02",source:"Camera trap 02",zone:"canopy",at:[445,365],gps:"Camera trap 02 position",acc:"Fixed",img:"IMG_12_CT_UNCLEAR",stamp:"CT02  02:13  12/10/2026  17°C",
+  note:"Single frame. Animal partly out of frame.",
+  ai:{label:"Sambar deer",conf:61},
+  caption:"A deer passed camera trap 02 on Canopy Walk late at night. The species is still being confirmed.",
+  status:"new",verified:false,idState:"pending",hideLoc:false,log:["Card collected by field staff, 09:30","Automated detection suggestion added"]},
+ {id:"R3",kind:"landscape",title:"Vegetation change, northern area",memberTitle:"The north greens up",time:"3 days ago",by:"Satellite monitoring",source:"Satellite imagery",zone:"north",sat:true,gps:"About 9 ha in the north of the property",acc:"10 m pixels",
+  note:"Greening increase compared with the previous clear image.",
+  compare:"Compared with the last clear image, 3 weeks earlier",
+  caption:"Satellite imagery shows the northern part of the property greening after recent rain.",
+  status:"new",verified:false,idState:"na",hideLoc:false,log:["Generated from satellite imagery"]},
+ {id:"R4",kind:"research",title:"Frogs on stream boulders, night survey",memberTitle:"Frogs on the boulders",time:"4 days ago",by:"Visiting researcher",source:"Visiting researcher",zone:"stream",at:[590,388],gps:"12.6xx° N, 75.7xx° E",acc:"± 4 m",img:"IMG_05_AMPHIBIAN_SURVEY",sensitive:true,
+  note:"Several calling males on wet boulders. Species identification pending. Please keep the exact location private.",
+  ident:"Pending with researcher",
+  caption:"Researchers recorded several frogs calling on the stream boulders at night. Identifications are pending.",
+  status:"new",verified:false,idState:"pending",hideLoc:false,log:["Submitted by researcher through the visit form"]},
+ {id:"R5",kind:"camera",title:"Gaur at stream crossing",memberTitle:"A quiet visitor at dawn",time:"4 Oct 2026",by:"Camera trap 01",source:"Camera trap 01",zone:"stream",at:[556,345],gps:"Camera trap 01 position",acc:"Fixed",img:"IMG_03_GAUR_CT",stamp:"CT01  05:42  04/10/2026  21°C",
+  note:"Clear frame, single adult.",ai:{label:"Gaur",conf:94},caption:"A gaur walked past camera trap 01 near the stream crossing, just before dawn. One encounter, not a count of animals.",
+  status:"published",verified:true,idState:"confirmed",hideLoc:false,prepublished:true,log:["Record verified by Mycelium team","Identification confirmed","Published to members"]},
+ {id:"R6",kind:"field",title:"Fallen tree across main trail",memberTitle:"",time:"2 days ago",by:"Field staff, patrol walk",source:"Staff walk",zone:"canopy",at:[470,378],gps:"12.6xx° N, 75.7xx° E",acc:"± 8 m",img:null,
+  note:"Large fallen tree blocking the main trail near Canopy Walk. Needs clearing before the next visit.",caption:"",
+  status:"internal",verified:true,idState:"na",hideLoc:false,log:["Kept internal, operational note"]}
+];
+
+/* =====================================================================
+   4. STATE
+   ===================================================================== */
+const clone=o=>JSON.parse(JSON.stringify(o));
+const state={view:"member",month:1,zone:null,pop:null,rec:"R1",filter:"all",records:clone(RECORDS0),published:[],toast:null,anim:false,editing:false,hint:null,sat:"true",base:"map",layers:{trails:true,streams:true,obs:true,cams:true},guide:0,openCard:null};
+/* Guide steps: 0 Month 12, 1 open a zone, 2 switch to team view, 3 verify, 4 approve, 5 see it as a member, 6 done */
+const nz=k=>state.guide===k?"nudge":"";
+const app=document.getElementById("app");
+
+/* =====================================================================
+   5. HELPERS
+   ===================================================================== */
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtDate(d){if(!d)return"Just now";const[y,m,dd]=d.split("-").map(Number);return `${dd} ${MON[m-1]} ${y}`}
+function media(id,o={}){
+  const meta=IMAGE_META[id]||{alt:"",kind:"photo",hint:""};
+  const stamp=o.stamp?`<span class="ct-stamp">${esc(o.stamp)}</span>`:"";
+  const cls=`media${meta.kind==="ct"?" is-ct":""}${o.cls?" "+o.cls:""}`;
+  const src=(o.small&&THUMBS[id])||IMAGES[id];
+  if(src)return `<figure class="${cls}"><img src="${src}" alt="${esc(meta.alt)}" loading="lazy">${stamp}</figure>`;
+  return `<figure class="${cls} ph" role="img" aria-label="${esc(meta.alt)}, placeholder"><span class="ph-id">${id}</span>${o.small?"":`<span class="ph-hint">${esc(meta.hint)}</span>`}${stamp}</figure>`;
+}
+function visibleFeed(){
+  const base=FEED.filter(f=>f.m<=state.month).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  return state.published.concat(base);
+}
+function stats(){const s=clone(STATS[state.month]);s.obs+=state.published.length;return s}
+function zoneStatus(z){return z.status[state.month]}
+const STATUS_TXT={doc:"Documented",part:"Partly documented",none:"Yet to be systematically documented"};
+
+/* =====================================================================
+   6. SATELLITE (drawn in code, deliberately coarse)
+   ===================================================================== */
+const STREAM_SAMPLES=(()=>{const out=[];[STREAMS[0].pts,STREAMS[1].pts].forEach(p=>{for(let i=0;i<p.length-1;i++)for(let t=0;t<1;t+=.1)out.push([p[i][0]+(p[i+1][0]-p[i][0])*t,p[i][1]+(p[i+1][1]-p[i][1])*t])});return out})();
+function streamDist(x,y){let m=1e9;for(const p of STREAM_SAMPLES){const d=(p[0]-x)**2+(p[1]-y)**2;if(d<m)m=d}return Math.sqrt(m)}
+function greenness(x,y,season){
+  let n=.5+.17*Math.sin(x*.013+1.3)*Math.cos(y*.017-.4)+.11*Math.sin((x+y)*.031)+.08*Math.cos(x*.047-y*.021);
+  const d=streamDist(x,y);n+=.24*Math.exp(-(d*d)/(2*55*55));
+  n=season==="dry"?n*.6+.02:n*.92+.12;
+  return Math.max(0,Math.min(1,n));
+}
+function ramp(g){const a=[205,187,134],b=[143,163,94],c=[63,106,54];const[p,q,t]=g<.5?[a,b,g/.5]:[b,c,(g-.5)/.5];return `rgb(${p.map((v,i)=>Math.round(v+(q[i]-v)*t)).join(",")})`}
+let satN=0;
+function satSVG(season,cols=30){
+  const rows=Math.round(cols*.68),cw=W/cols,ch=H/rows;let r="";
+  for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){r+=`<rect x="${r1(i*cw)}" y="${r1(j*ch)}" width="${r1(cw+.7)}" height="${r1(ch+.7)}" fill="${ramp(greenness((i+.5)*cw,(j+.5)*ch,season))}"/>`}
+  const id="sc"+(++satN);
+  return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><clipPath id="${id}"><path d="${BPATH}"/></clipPath></defs><g clip-path="url(#${id})">${r}</g><path d="${BPATH}" class="sat-outline"/></svg>`;
+}
+
+function satImg(id,o={}){
+  const src=(o.thumb&&THUMBS[id])||IMAGES[id];
+  if(!src)return satSVG(id.indexOf("DRY")>-1?"dry":"wet",o.thumb?16:30);
+  const cid="si"+(++satN),im=(extra)=>`<image href="${src}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice"${extra}/>`;
+  return `<svg viewBox="0 0 ${W} ${H}"${o.cover?' preserveAspectRatio="xMidYMid slice"':""} role="img" aria-label="${esc((IMAGE_META[id]||{}).alt||"")}"><defs><clipPath id="${cid}"><path d="${BPATH}"/></clipPath></defs>${im(' opacity=".3"')}${im(` clip-path="url(#${cid})"`)}<path d="${BPATH}" class="sat-outline"/></svg>`;
+}
+
+/* =====================================================================
+   7. MAP
+   ===================================================================== */
+function mapDefs(){
+  return `<defs>
+  <filter id="wc" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <pattern id="stipple" width="22" height="22" patternUnits="userSpaceOnUse"><circle class="stip-dot" cx="4" cy="5" r="1.1"/><circle class="stip-dot" cx="15" cy="13" r="1"/><path class="stip-tick" d="M9 19 l2.5 -4 l2.5 4"/></pattern>
+  <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line class="hatch-line" x1="0" y1="0" x2="0" y2="8"/></pattern>
+  <clipPath id="bclip"><path d="${BPATH}"/></clipPath>
+  </defs>`;
+}
+function markerList(){
+  const m=state.month,out=[];
+  CTS.filter(c=>c.m<=m).forEach(c=>out.push({type:"ct",id:c.id,at:c.at,fresh:c.m===12}));
+  visibleFeed().forEach(f=>{
+    if(f.gen){const zz=ZMAP[f.zone];out.push({type:"gen",id:f.id,at:zz?(zz.id==="stream"?[585,390]:[zz.shape[0],zz.shape[1]]):[500,340],fresh:f.m===12,isNew:f.isNew});return}
+    if(f.ct||!f.at)return;
+    out.push({type:f.kind==="property"?"prop":"obs",id:f.id,at:f.at,fresh:f.m===12,isNew:f.isNew});
+  });
+  return out;
+}
+function markerSVG(k){
+  const[x,y]=k.at,cls=`mk${state.anim&&k.fresh&&state.month===12?" appear":""}`;
+  const attrs=`class="${cls}" data-action="marker" data-id="${k.id}" tabindex="0" role="button"`;
+  let g="";
+  if(k.type==="ct"){const c=CTS.find(c=>c.id===k.id);g=`<g ${attrs} aria-label="${esc(c.name)}"><rect class="mk-ct" x="${x-7}" y="${y-7}" width="14" height="14" rx="3"/><circle class="mk-ct-in" cx="${x}" cy="${y}" r="3"/></g>`}
+  else if(k.type==="gen"){g=`<g ${attrs} aria-label="Research observation, location generalised"><circle class="mk-gen" cx="${x}" cy="${y}" r="34"/><circle class="mk-obs" cx="${x}" cy="${y}" r="5"/></g>`}
+  else if(k.type==="prop"){g=`<g ${attrs} aria-label="Property update"><rect class="mk-prop" x="${x-6.5}" y="${y-6.5}" width="13" height="13" rx="1"/></g>`}
+  else{g=`<g ${attrs} aria-label="Observation"><circle class="mk-obs" cx="${x}" cy="${y}" r="7"/><circle class="mk-obs-in" cx="${x}" cy="${y}" r="2.6"/></g>`}
+  g=g.replace(/^<g ([^>]*)>/,m0=>m0+`<circle cx="${x}" cy="${y}" r="20" fill="transparent"/>`);
+  if(k.isNew)g=`<circle class="mk-new pulse" cx="${x}" cy="${y}" r="12"/>`+g;
+  return g;
+}
+function mapSVG(){
+  const m=state.month,anim=state.anim&&m===12,satBase=state.base==="sat"&&IMAGES.IMG_14_SAT_WET_TRUE;
+  let z1="",z2="",z3="",hits="",labels="";
+  ZONES.forEach(z=>{
+    const st=zoneStatus(z),changed=anim&&z.status[1]!==z.status[12]?" appear":"";
+    if(st==="doc"){z1+=`<path class="z-doc${changed}" d="${z.path}"/><path class="z-doc-edge${changed}" d="${z.path}"/>`}
+    else if(st==="part"){z1+=`<path class="z-part${changed}" d="${z.path}"/><path class="z-part-h${changed}" d="${z.path}"/>`}
+    else{z2+=`<path class="z-none" d="${z.path}"/>`}
+  });
+  ZONES.slice().reverse().forEach(z=>{hits+=`<path class="zhit${z.id==="stream"&&state.guide===1?" nudge-zone":""}" d="${z.path}" data-action="zone" data-zone="${z.id}" tabindex="0" role="button" aria-label="${esc(z.name)}, ${STATUS_TXT[zoneStatus(z)]}"/>`});
+  ZONES.forEach(z=>{const st=zoneStatus(z);labels+=`<text class="zlabel${st==="none"?" muted":""}" x="${z.label[0]}" y="${z.label[1]}" text-anchor="middle">${esc(z.name)}</text>`});
+  let streams="";const L=state.layers;
+  STREAMS.forEach(s=>{
+    if(!L.streams)return;
+    if(s.m>m&&!s.approxBefore)return;
+    const approx=s.m>m&&s.approxBefore,fresh=anim&&s.m===12?" appear":"";
+    const d=openPath(s.pts);
+    streams+=approx?`<path class="stream approx" d="${d}"/>`:`<path class="stream-under${fresh}" d="${d}"/><path class="stream${fresh}" d="${d}"/>`;
+  });
+  const trails=TRAILS.filter(t=>L.trails&&t.m<=m).map(t=>`<path class="trail${anim&&t.m===12?" appear":""}" d="${openPath(t.pts)}"/>`).join("");
+  const contours=CONTOURS.map(c=>`<path class="contour" d="${openPath(c)}"/>`).join("");
+  const marks=markerList().filter(k=>k.type==="ct"?L.cams:L.obs).map(markerSVG).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" class="${satBase?"on-sat":""}" role="group" aria-label="Field map of Dancing Frog Habitat">${mapDefs()}
+  ${satBase?`<image href="${m===1?IMAGES.IMG_13_SAT_DRY_TRUE:IMAGES.IMG_14_SAT_WET_TRUE}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" opacity=".35"/><image href="${m===1?IMAGES.IMG_13_SAT_DRY_TRUE:IMAGES.IMG_14_SAT_WET_TRUE}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" clip-path="url(#bclip)"/>`:`<path class="b-fill" d="${BPATH}"/><path d="${BPATH}" fill="url(#stipple)"/>`}
+  <g clip-path="url(#bclip)">${contours}${z1}${z2}</g>
+  <g clip-path="url(#bclip)">${streams}</g>
+  ${trails}
+  <path class="boundary2" d="${BPATH}"/><path class="boundary" d="${BPATH}"/>
+  ${hits}${labels}
+  <text class="zlabel small" x="250" y="630" text-anchor="middle">Entrance</text>
+  <g transform="translate(944 606)"><circle class="compass" r="22"/><path class="compass" d="M0 -30 L6 0 L0 30 L-6 0 Z"/><text class="compass-t" x="0" y="-36" text-anchor="middle">N</text></g>
+  ${marks}
+  </svg>`;
+}
+function popover(){
+  if(!state.pop)return"";
+  let html="",at=null;
+  const ct=CTS.find(c=>c.id===state.pop);
+  if(ct){
+    at=ct.at;const rec=visibleFeed().filter(f=>f.ct===ct.id);
+    html=`<strong style="font-weight:500">${esc(ct.name)}</strong><p>${esc(ct.note)}.</p>${rec.length?`<p style="font-size:14px">Latest: ${esc(rec[0].text)}</p>`:`<p style="font-size:14px;color:var(--ink-3)">No highlights published from this camera yet.</p>`}<div class="row"><span>Placed ${ct.m===1?"September 2026":"during the year"}</span><button class="zlink" data-action="zone" data-zone="${ct.zone}">${esc(ZMAP[ct.zone].name)}</button></div>`;
+  }else{
+    const f=visibleFeed().find(f=>f.id===state.pop);if(!f)return"";
+    const mk=markerList().find(k=>k.id===f.id);at=mk?mk.at:[500,340];
+    html=`${f.img?media(f.img,{stamp:f.stamp,small:true}):""}<p>${esc(f.text)}</p><div class="row"><span>${fmtDate(f.date)}${f.gen?", location generalised":""}</span><button class="zlink" data-action="zone" data-zone="${f.zone}">${esc(ZMAP[f.zone].name)}</button></div>`;
+  }
+  const below=at[1]<260;
+  const lo=window.innerWidth<640?34:16;return `<div class="pop${below?" below":""}" style="left:${Math.min(100-lo,Math.max(lo,at[0]/10))}%;top:${at[1]/6.8}%"><button class="x" data-action="closepop" aria-label="Close">×</button>${html}</div>`;
+}
+function legend(){
+  const sw=(inner)=>`<svg width="22" height="14" viewBox="0 0 22 14" aria-hidden="true">${inner}</svg>`;
+  return `<div class="legend">
+   <span>${sw('<rect x="1" y="1" width="20" height="12" rx="3" style="fill:var(--wash)"/>')}Documented</span>
+   <span>${sw('<rect x="1" y="1" width="20" height="12" rx="3" style="fill:var(--wash-2)"/><rect x="1" y="1" width="20" height="12" rx="3" fill="url(#lg-h)"/><defs><pattern id="lg-h" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="4" style="stroke:var(--moss-2);stroke-width:1"/></pattern></defs>')}Partly documented</span>
+   <span>${sw('<rect x="1" y="1" width="20" height="12" rx="3" style="fill:var(--paper-2);stroke:var(--ink-3);stroke-dasharray:2 3"/><circle cx="7" cy="7" r="1" style="fill:var(--ink-3)"/><circle cx="15" cy="6" r="1" style="fill:var(--ink-3)"/>')}Yet to be systematically documented</span>
+   <span>${sw('<path d="M1 10 C7 2 14 12 21 4" style="fill:none;stroke:var(--stream);stroke-width:2.4"/>')}Stream</span>
+   <span>${sw('<path d="M1 7 H21" style="fill:none;stroke:var(--bark);stroke-width:2;stroke-dasharray:5 3"/>')}Mapped trail</span>
+   <span>${sw('<circle cx="11" cy="7" r="5" style="fill:var(--card);stroke:var(--ink);stroke-width:1.6"/><circle cx="11" cy="7" r="2" style="fill:var(--ink)"/>')}Observation</span>
+   <span>${sw('<rect x="5" y="1" width="12" height="12" rx="2.5" style="fill:var(--bark)"/><circle cx="11" cy="7" r="2.4" style="fill:var(--card)"/>')}Camera trap</span>
+   <span>${sw('<circle cx="11" cy="7" r="6" style="fill:var(--stream);fill-opacity:.15;stroke:var(--stream);stroke-dasharray:2 2"/>')}Location generalised</span>
+  </div>`;
+}
+
+/* =====================================================================
+   8. MEMBER VIEW
+   ===================================================================== */
+function feedItem(f){
+  const open=!f.preview&&state.openCard===f.id;
+  const ver=`<span class="ver ok">✓ Record checked by Mycelium</span>`;
+  const idt=f.idf==="pend"?`<span class="ver pend">◌ Identification pending</span>`:(f.idf==="conf"?`<span class="ver ok">Identification confirmed</span>`:"");
+  const gen=f.gen?`<span class="ver gen">Location generalised</span>`:"";
+  let pic="";
+  if(open){pic=f.img?`<div class="fi-media">${media(f.img,{stamp:f.stamp,small:false,cls:"big"})}</div>`:(f.sat?`<div class="fi-media"><div class="media big satbig">${satImg("IMG_14_SAT_WET_TRUE",{cover:true})}</div></div>`:"")}
+  else{pic=f.img?`<div class="fi-media">${media(f.img,{stamp:f.stamp,small:true})}</div>`:(f.sat?`<div class="fi-media"><div class="media sqsat" style="aspect-ratio:1/1;border-radius:10px">${satImg("IMG_14_SAT_WET_TRUE",{thumb:true,cover:true})}</div></div>`:"")}
+  const tap=f.preview?"":` data-action="card" data-id="${f.id}" tabindex="0" role="button" aria-expanded="${open}"`;
+  return `<li class="fi${f.isNew?" is-new":""}${pic?"":" no-media"}${open?" open":""}${f.preview?"":" tappable"}"${tap}>${pic}<div class="fi-body">
+    <div class="fi-meta"><span class="kind k-${f.kind}">${KIND[f.kind]}</span><time>${f.preview?"When published":(f.isNew?"Just now":fmtDate(f.date))}</time>${f.isNew?`<span class="newtag">New</span>`:""}${f.preview?"":`<span class="chev" aria-hidden="true">${open?"Close":"Open"}</span>`}</div>
+    ${f.title?`<h3 class="fi-title">${esc(f.title)}</h3>`:""}
+    <p class="fi-text">${esc(f.text)}</p>
+    <div class="fi-foot">${f.zone?`<button class="zlink" data-action="zone" data-zone="${f.zone}"${f.preview?" disabled":""}>${esc(ZMAP[f.zone].name)}</button>`:""}<span>${esc(f.source)}</span>${ver}${idt}${gen}</div>
+  </div></li>`;
+}
+function memberView(){
+  const s=stats(),m=state.month,rest=100-s.doc-s.part,feed=visibleFeed();
+  const upto=m===1?"October 2026":"September 2027";
+  return `<main class="wrap">
+  <header class="mhead">
+    <div>
+      <h1>Dancing Frog Habitat</h1>
+      <p class="sub">Your Living Landscape</p>
+      <p class="lede">Follow the landscape you helped protect as it is explored, documented and better understood.</p>
+      <div class="signed">Signed in as a collective member</div>
+    </div>
+    <div class="timebox"><div class="lbl" id="tl">Show the landscape at</div>
+      <div class="timeseg" role="group" aria-labelledby="tl">
+        <button data-action="month" data-m="1" aria-pressed="${m===1}"><b>Month 1</b><span>October 2026</span></button>
+        <button class="${nz(0)}" data-action="month" data-m="12" aria-pressed="${m===12}"><b>Month 12</b><span>September 2027</span></button>
+      </div>
+    </div>
+  </header>
+  <div class="mgrid">
+    <section class="maparea" aria-label="Field map">
+      <div class="mapcard${state.base==="sat"?" sat":""}"><div class="mapsvg">${mapSVG()}${popover()}</div><div class="mapcap">${state.base==="sat"?"Field map over an illustrative satellite view":"Field map of the property"}</div><div class="seg basesw" role="group" aria-label="Map base"><button data-action="base" data-b="map" aria-pressed="${state.base!=="sat"}">Field map</button><button data-action="base" data-b="sat" aria-pressed="${state.base==="sat"}">Satellite</button></div></div>
+      ${legend()}
+      <div class="layers" role="group" aria-label="Show on map"><span>Show on map</span>${[["trails","Trails"],["streams","Streams"],["obs","Observations"],["cams","Camera traps"]].map(([k,t])=>`<button class="chip" data-action="layer" data-k="${k}" aria-pressed="${state.layers[k]}">${t}</button>`).join("")}</div>
+      <p class="maphint">Tap any area or marker to explore.</p>
+    </section>
+    <aside class="side">
+      <div class="progress">
+        <h2>How much we know</h2>
+                <div class="bar" role="img" aria-label="About ${s.doc}% documented, about ${s.part}% partly documented"><i class="b1" style="width:${s.doc}%"></i><i class="b2" style="width:${s.part}%"></i></div>
+        <p><strong>Landscape documented: about ${s.doc}%</strong>, with about ${s.part}% partly documented. The remaining area has not yet been systematically documented.</p>
+        <dl class="facts">
+          <div><dt>Verified observations</dt><dd>${s.obs}</dd></div>
+          <div><dt>Species confirmed on the property</dt><dd>${s.species}</dd></div>
+          <div><dt>Camera trap records</dt><dd>${s.ct}</dd></div>
+          <div><dt>Trails mapped</dt><dd>${s.trail} km</dd></div>
+        </dl>
+      </div>
+      <h2>Latest from Dancing Frog</h2>
+      <p class="note">Published up to ${upto}</p>
+      <ul class="feed">${(state.feedAll?feed:feed.slice(0,6)).map(feedItem).join("")}</ul>${feed.length>6?`<button class="morebtn" data-action="more">${state.feedAll?"Show fewer updates":`Show all ${feed.length} updates`}</button>`:""}
+    </aside>
+  </div>
+
+  <section class="section" aria-labelledby="sat-h">
+    <div class="sathead"><h2 id="sat-h">The landscape from above</h2>
+      <div class="seg satswitch" role="group" aria-label="Satellite view"><button data-action="sat" data-s="true" aria-pressed="${state.sat!=="index"}">True colour</button><button data-action="sat" data-s="index" aria-pressed="${state.sat==="index"}">Greenness</button></div></div>
+    <div class="satgrid">
+      <figure class="satfig">${satImg("IMG_13_SAT_DRY_TRUE")}<figcaption>Illustrative seasonal satellite view, before the monsoon</figcaption></figure>
+      <figure class="satfig">${satImg(state.sat==="index"?"IMG_15_SAT_NDVI_WET":"IMG_14_SAT_WET_TRUE")}<figcaption>${state.sat==="index"?"Illustrative greenness view, after the monsoon":"Illustrative seasonal satellite view, after the monsoon"}</figcaption></figure>
+    </div>
+    ${state.sat==="index"?'<div class="ramp"><span>Less green</span><i></i><span>More green</span></div>':""}
+  </section>
+  <footer class="foot">Illustrative preview. Content, imagery, locations and monitoring data shown are representative unless explicitly stated otherwise.</footer>
+  </main>`;
+}
+
+/* =====================================================================
+   9. ZONE DRAWER
+   ===================================================================== */
+function zoneDrawer(){
+  if(!state.zone)return"";
+  const z=ZMAP[state.zone],info=ZONE_INFO[z.id]||{},m=state.month,st=zoneStatus(z);
+  const items=visibleFeed().filter(f=>f.zone===z.id);
+  const obs=items.filter(f=>["field","explore","property"].includes(f.kind));
+  const cams=items.filter(f=>f.kind==="camera");
+  const trails=TRAILS.filter(t=>t.m<=m&&t.zones.includes(z.id));
+  const streams=STREAMS.filter(s=>s.zone===z.id&&s.m<=m);
+  const cts=CTS.filter(c=>c.zone===z.id&&c.m<=m);
+  const research=(info.research||[]).filter(r=>r.m<=m);
+  const hist=(info.hist||[]).slice().sort((a,b)=>a.d.localeCompare(b.d));
+  const shown=hist.filter(h=>h.m<=m),later=m===1?hist.filter(h=>h.m>m).length:0;
+  const pubHist=state.published.filter(p=>p.zone===z.id).map(p=>({d:null,t:p.text}));
+  const photos=[...new Set(items.map(i=>i.img).filter(Boolean))];
+  const li=(t,s)=>`<li>${esc(t)}${s?`<small>${esc(s)}</small>`:""}</li>`;
+  const sec=(title,body,empty)=>`<h3>${title}</h3>${body||`<p class="empty">${empty}</p>`}`;
+  const season=info.season?info.season[m]:(m===1?"Seasonal context will build here once a full season of imagery is available.":"This area follows the wider post monsoon greening seen across the property.");
+  return `<div class="backdrop" data-action="closezone"></div>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="dz">
+    <button class="close" data-action="closezone">Close</button>
+    <h2 id="dz">${esc(z.name)}</h2>
+    <div class="status"><span class="sw ${st}"></span>${STATUS_TXT[st]}, ${m===1?"October 2026":"September 2027"}</div>
+    ${media(info.img||"IMG_01_MEMBER_HERO",{cls:"hero"})}
+    <p class="desc">${esc(info.desc||"")}</p>
+    ${st==="none"?`<div class="callout">Not yet surveyed.</div>`:""}
+    <h3>How this place has been documented</h3>
+    ${shown.length||pubHist.length?`<ol class="timeline">${shown.map(h=>`<li><time>${fmtDate(h.d)}</time>${esc(h.t)}</li>`).join("")}${pubHist.map(h=>`<li><time>Just now</time>${esc(h.t)}</li>`).join("")}${later?`<li class="future">${later} more entries arrive over the coming months</li>`:""}</ol>`:`<p class="empty">No entries yet.${later?` ${later} entries arrive over the coming months.`:""}</p>`}
+    ${sec("Trails",trails.length?`<ul class="dl">${trails.map(t=>li(t.name,`${t.km} km mapped`)).join("")}</ul>`:"","No trails mapped here yet.")}
+    ${sec("Streams",streams.length?`<ul class="dl">${streams.map(s=>li(s.name,"Walked and mapped")).join("")}</ul>`:"","No stream sections mapped here yet.")}
+    ${sec("Field observations",obs.length?`<ul class="dl">${obs.map(o=>li(o.text,`${o.isNew?"Just now":fmtDate(o.date)}, ${o.source}`)).join("")}</ul>`:"","No published observations here yet.")}
+    ${sec("Camera trap observations",(cams.length||cts.length)?`<ul class="dl">${cams.map(c=>li(c.text,`${fmtDate(c.date)}, ${c.source}`)).join("")}${cts.filter(c=>!cams.some(x=>x.ct===c.id)).map(c=>li(`${c.name} is in place`,c.note)).join("")}</ul>`:"","No camera traps placed here yet.")}
+    ${research.length?sec("Research notes",`<ul class="dl">${research.map(r=>li(r.t,"Exact location kept private")).join("")}</ul>`):""}
+    ${photos.length?sec("Photographs",`<div class="gallery">${photos.map(p=>media(p,{small:true})).join("")}</div>`):""}
+    <h3>Seasonal context</h3>
+    <div class="minisat">${satImg(m===1?"IMG_13_SAT_DRY_TRUE":"IMG_14_SAT_WET_TRUE",{thumb:true})}<p style="margin:0;color:var(--ink-2);font-size:16px">${esc(season)}</p></div>
+  </aside>`;
+}
+
+/* =====================================================================
+   10. MYCELIUM CONTROL VIEW
+   ===================================================================== */
+function recStatus(r){if(r.status==="published")return"published";if(r.status==="internal")return"internal";if(r.verified)return"verified";return"new"}
+const REC_TXT={new:"Needs review",verified:"Record checked",published:"Published to members",internal:"Kept internal"};
+const ICON={field:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>',
+ camera:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="3"/><circle cx="12" cy="12" r="3.4"/></svg>',
+ landscape:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16M15 4v16"/></svg>',
+ research:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 20V5a1 1 0 0 1 1-1h9l4 4v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/><path d="M9 11h6M9 15h6"/></svg>'};
+function miniMap(r){
+  const z=ZMAP[r.zone];let pin="";
+  const img=state.month===1?IMAGES.IMG_13_SAT_DRY_TRUE:IMAGES.IMG_14_SAT_WET_TRUE;
+  if(r.sat){pin=`<path d="${z.path}" style="fill:#cfe8a0;fill-opacity:.35;stroke:#eef6d8;stroke-width:3"/>`}
+  else if(r.hideLoc){pin=`<circle cx="${z.shape[0]}" cy="${z.shape[1]}" r="62" style="fill:#8fd3e0;fill-opacity:.25;stroke:#dff4f8;stroke-width:3;stroke-dasharray:8 7"/>`}
+  else if(r.at){pin=`<circle cx="${r.at[0]}" cy="${r.at[1]}" r="26" style="fill:none;stroke:#ffd58a;stroke-width:3;opacity:.9"/><circle cx="${r.at[0]}" cy="${r.at[1]}" r="10" style="fill:#f0b24a;stroke:#1a2317;stroke-width:3"/>`}
+  const zones=ZONES.map(q=>`<path d="${q.path}" style="fill:none;stroke:#eef2dc;stroke-width:2;opacity:.55"/>`).join("");
+  const streams=STREAMS.filter(t=>t.m<=state.month).map(t=>`<path d="${openPath(t.pts)}" style="fill:none;stroke:#8fd3e0;stroke-width:4;opacity:.9"/>`).join("");
+  const trails=TRAILS.filter(t=>t.m<=state.month).map(t=>`<path d="${openPath(t.pts)}" style="fill:none;stroke:#f0c98a;stroke-width:3;stroke-dasharray:10 7;opacity:.85"/>`).join("");
+  const base=img?`<image href="${img}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" opacity=".35"/><image href="${img}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" clip-path="url(#mc)"/>`:`<path d="${BPATH}" style="fill:var(--card)"/>`;
+  const cap=r.sat?"Area covered by the change signal":r.hideLoc?`Members will see only "${z.name}", not the exact point`:"Exact point, visible to the Mycelium team";
+  return `<figure class="minimap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Satellite location map. ${esc(cap)}"><defs><clipPath id="mc"><path d="${BPATH}"/></clipPath></defs>${base}<g clip-path="url(#mc)">${zones}${streams}${trails}</g><path d="${BPATH}" style="fill:none;stroke:#F5F2E6;stroke-width:4"/>${pin}</svg><figcaption>${cap}</figcaption></figure>`;
+}
+function controlView(){
+  const f=state.filter;
+  const recs=state.records.filter(r=>{const s=recStatus(r);return f==="all"||(f==="review"&&(s==="new"||s==="verified"))||(f==="published"&&s==="published")||(f==="internal"&&s==="internal")});
+  const counts={review:state.records.filter(r=>["new","verified"].includes(recStatus(r))).length};
+  const r=state.records.find(x=>x.id===state.rec)||state.records[0];
+  const s=recStatus(r),done=s==="published"||s==="internal";
+  const canApprove=r.verified;
+  const chip=(k,t)=>`<button class="chip" data-action="filter" data-f="${k}" aria-pressed="${f===k}">${t}</button>`;
+  return `<main class="wrap">
+  <header class="chead"><div><h1>Mycelium team view</h1></div><div class="signed">Internal view. Members don't see this page.</div></header>
+  <div class="process"><span><b>1</b>Capture</span><span><b>2</b>Review and organise</span><span><b>3</b>Share selectively</span><strong>No automatic publishing</strong></div>
+  <div class="cgrid">
+    <section aria-label="Incoming records">
+      <div class="filters">${chip("all","All")}${chip("review",`Needs a decision (${counts.review})`)}${chip("published","Published")}${chip("internal","Internal")}</div>
+      <ul class="queue">${recs.map(x=>{const xs=recStatus(x);return `<li><button class="qitem" data-action="rec" data-id="${x.id}" aria-current="${x.id===r.id}"><span class="qicon">${ICON[x.kind]}</span><span><span class="qt">${esc(x.title)}</span><span class="qm">${esc(x.by)}, ${esc(x.time)} <span class="st ${xs}">${REC_TXT[xs]}</span></span></span></button></li>`}).join("")||`<li class="empty" style="padding:14px">Nothing here right now.</li>`}</ul>
+    </section>
+    <section class="detail" aria-label="Record detail">
+      <div class="dtop">
+        <div>${r.sat?`<div class="satmedia">${satImg("IMG_16_SAT_CHANGE")}</div><div class="ramp chg" style="margin-top:8px"><span>Little change</span><i></i><span>Greener</span></div><div class="satcap">Illustrative vegetation change view</div>`:(r.img?media(r.img,{stamp:r.stamp}):`<div class="media ph" style="aspect-ratio:4/3;border-radius:12px"><span class="ph-hint">No photo attached</span></div>`)}${miniMap(r)}</div>
+        <div>
+          <div class="fi-meta"><span class="kind k-${r.kind}">${r.kind==="landscape"?"Satellite observation":KIND[r.kind]}</span><span class="st ${s}">${REC_TXT[s]}</span></div>
+          <h2>${esc(r.title)}</h2>
+          <p style="margin:0;color:var(--ink-2)">${esc(r.note)}</p>
+          <dl class="meta">
+            <dt>Submitted by</dt><dd>${esc(r.by)}</dd>
+            <dt>Time</dt><dd>${esc(r.time)}</dd>
+            <dt>${r.sat?"Coverage":"Location"}</dt><dd>${esc(r.gps)}</dd>
+            <dt>${r.sat?"Resolution":"Accuracy"}</dt><dd>${esc(r.acc)}</dd>
+            <dt>Area</dt><dd>${esc(ZMAP[r.zone].name)}</dd>
+            ${r.ident?`<dt>Identification</dt><dd>${esc(r.ident)}</dd>`:""}
+            ${r.compare?`<dt>Comparison</dt><dd>${esc(r.compare)}</dd>`:""}
+          </dl>
+          ${r.ai?`<div class="ai"><strong>Automated suggestion: ${esc(r.ai.label)}, ${r.ai.conf}%.</strong> Needs confirmation.</div>`:""}
+          ${r.sensitive?`<div class="ai" style="border-color:var(--stream)">Submitter asked to keep the exact location private.</div>`:""}
+        </div>
+      </div>
+      ${state.editing?`<div class="memberbox"><div class="lbl">Edit what members will read</div>${state.editing?`<textarea id="capedit" aria-label="Text members will read">${esc(r.caption)}</textarea><div class="actions"><button class="btn primary" data-action="save">Save text</button><button class="btn quiet" data-action="canceledit">Cancel</button></div>`:`<p>${esc(r.caption)}</p>`}</div>`:""}
+      ${done?"":`<div class="checks">
+        <div class="crow"><span class="clbl">Record</span><span class="cval ${r.verified?"ok":"todo"}">${r.verified?"✓ Checked by Mycelium":"Not yet checked"}</span><button class="btn ${!r.verified&&r.id==="R1"?nz(3):""}" data-action="verify" aria-pressed="${r.verified}">${r.verified?"Undo check":"Verify record"}</button></div>
+        ${r.idState==="na"?"":`<div class="crow"><span class="clbl">Identification</span><span class="cval ${r.idState==="confirmed"?"ok":"pend"}">${r.idState==="confirmed"?"✓ Confirmed":"◌ Pending"}</span><button class="btn" data-action="ident">${r.idState==="confirmed"?"Mark identification pending":"Confirm identification"}</button></div>`}
+        ${r.sat?"":`<div class="crow"><span class="clbl">Location</span><span class="cval">${r.hideLoc?`Members see only ${esc(ZMAP[r.zone].name)}`:"Exact point would be shown"}</span><button class="btn" data-action="hide" aria-pressed="${r.hideLoc}">${r.hideLoc?"Show exact location":"Hide exact location"}</button></div>`}
+      </div>`}
+      ${r.caption?`<div class="preview"><div class="lbl">Member preview${s==="published"?"":", not yet published"}</div><ul class="feed">${feedItem(memberItem(r,true))}</ul></div>`:""}
+      ${done?`<div class="actions">${s==="published"?`<button class="btn" data-action="withdraw">Withdraw from members</button>`:`<button class="btn" data-action="reopen">Reopen for review</button>`}</div>`:`
+      <div class="actions">
+        <button class="btn" data-action="edit">Edit text</button>
+        <button class="btn" data-action="internal">Keep internal</button>
+        <button class="btn primary ${r.id==="R1"&&r.verified?nz(4):""}" data-action="approve"${canApprove?"":` aria-disabled="true"`}>Approve for members</button>
+      </div>
+      ${state.hint?`<div class="hint" role="status">${esc(state.hint)}</div>`:""}`}
+      <ul class="log" aria-label="Activity">${r.log.map(l=>`<li>${esc(l)}</li>`).join("")}</ul>
+    </section>
+  </div>
+  <footer class="foot">Illustrative preview. Content, imagery, locations and monitoring data shown are representative unless explicitly stated otherwise.</footer>
+  </main>`;
+}
+
+/* =====================================================================
+   11. SHELL
+   ===================================================================== */
+function demobar(){
+  return `<div class="demobar"><div class="wrap">
+    <div class="tag brand"><span>Dancing Frog Living Landscape</span></div>
+    <div class="tag viewtag"><span class="viewas" id="viewas">View as</span><div class="seg" role="group" aria-labelledby="viewas"><button data-action="view" data-v="member" aria-pressed="${state.view==="member"}"><span class="lg">Collective member</span><span class="sm">Member</span></button><button class="${nz(2)}" data-action="view" data-v="control" aria-pressed="${state.view==="control"}"><span class="lg">Mycelium team</span><span class="sm">Mycelium team</span></button></div><button class="linkbtn" data-action="reset">Start over</button></div>
+  </div></div>`;
+}
+function toast(){if(!state.toast)return"";return `<div class="toast" role="status"><span>${esc(state.toast.text)}</span>${state.toast.go?`<button class="${nz(5)}" data-action="gomember">See it as a member</button>`:""}</div>`}
+let toastTimer=null;
+function showToast(text,go){state.toast={text,go};clearTimeout(toastTimer);toastTimer=setTimeout(()=>{state.toast=null;render()},7000)}
+function render(){
+  satN=0;
+  app.innerHTML=demobar()+(state.view==="member"?memberView():controlView())+(state.view==="member"?zoneDrawer():"")+toast();
+  state.anim=false;
+  document.body.style.overflow=state.zone&&state.view==="member"?"hidden":"";
+}
+
+/* =====================================================================
+   12. ACTIONS
+   ===================================================================== */
+function curRec(){return state.records.find(x=>x.id===state.rec)}
+function memberItem(r,preview){
+  return {id:"P_"+r.id,kind:r.kind,date:null,m:1,source:r.source,zone:r.zone,img:r.img,stamp:r.stamp,sat:r.sat,verify:"ok",idf:r.idState==="pending"?"pend":(r.idState==="confirmed"?"conf":undefined),gen:r.hideLoc,at:r.sat?null:(r.kind==="camera"?null:r.at),ct:r.kind==="camera"?CTS.find(c=>c.zone===r.zone&&c.m===1)?.id:null,title:r.memberTitle,text:r.caption,isNew:!preview,preview:!!preview};
+}
+function publish(r){
+  state.published=state.published.filter(p=>p.id!=="P_"+r.id);
+  state.published.unshift(memberItem(r,false));
+}
+const actions={
+  view:t=>{state.view=t.dataset.v;if(t.dataset.v==="control"&&state.guide<=2)state.guide=3;state.pop=null;state.hint=null;state.editing=false;window.scrollTo(0,0)},
+  month:t=>{const m=+t.dataset.m;if(m!==state.month){state.month=m;state.anim=true;state.pop=null;state.feedAll=false;state.openCard=null}if(m===12&&state.guide===0)state.guide=1},
+  more:()=>{state.feedAll=!state.feedAll},
+  card:t=>{state.openCard=state.openCard===t.dataset.id?null:t.dataset.id;state.pop=null},
+  sat:t=>{state.sat=t.dataset.s},
+  base:t=>{state.base=t.dataset.b;state.pop=null},
+  zone:t=>{state.zone=t.dataset.zone;state.pop=null;if(state.guide<=1)state.guide=2},
+  closezone:()=>{state.zone=null},
+  marker:t=>{state.pop=state.pop===t.dataset.id?null:t.dataset.id},
+  closepop:()=>{state.pop=null},
+  filter:t=>{state.filter=t.dataset.f},
+  rec:t=>{state.rec=t.dataset.id;state.editing=false;state.hint=null},
+  verify:()=>{const r=curRec();r.verified=!r.verified;if(r.verified&&r.id==="R1"&&state.guide<=3)state.guide=4;r.log.push(r.verified?"Record verified by Mycelium team":"Record check removed");state.hint=null},
+  ident:()=>{const r=curRec();r.idState=r.idState==="confirmed"?"pending":"confirmed";r.log.push(r.idState==="confirmed"?"Identification confirmed":"Identification marked as pending");state.hint=null},
+  layer:t=>{const k=t.dataset.k;state.layers[k]=!state.layers[k];state.pop=null},
+  hide:()=>{const r=curRec();r.hideLoc=!r.hideLoc;r.log.push(r.hideLoc?"Exact location hidden from members":"Exact location shown to members")},
+  edit:()=>{state.editing=true},
+  canceledit:()=>{state.editing=false},
+  save:()=>{const r=curRec(),v=document.getElementById("capedit").value.trim();if(v&&v!==r.caption){r.caption=v;if(r.verified){r.verified=false;r.log.push("Member text edited. Record check removed, review again");state.hint="The text changed, so the record needs checking again before it can be approved."}else{r.log.push("Member text edited")}}state.editing=false},
+  internal:()=>{const r=curRec();r.status="internal";r.log.push("Kept internal. Not visible to members");state.hint=null;showToast("Kept internal. Members will not see this record.")},
+  reopen:()=>{const r=curRec();r.status="new";r.log.push("Reopened for review")},
+  approve:()=>{const r=curRec();if(!r.verified){state.hint="Verify the record before approving it. The species identification can stay pending.";return}
+    if(state.guide<=4)state.guide=5;r.status="published";r.log.push(r.hideLoc?"Published to members with location generalised":"Published to members");state.hint=null;publish(r);showToast("Published to members",true)},
+  withdraw:()=>{const r=curRec();r.status="new";r.verified=false;r.log.push("Withdrawn from members");state.published=state.published.filter(p=>p.id!=="P_"+r.id);showToast("Withdrawn. Members no longer see this record.")},
+  gomember:()=>{if(state.guide<=5)state.guide=6;state.view="member";state.toast=null;state.pop=null;window.scrollTo(0,0)},
+  reset:()=>{state.view="member";state.month=1;state.zone=null;state.pop=null;state.rec="R1";state.filter="all";state.records=clone(RECORDS0);state.published=[];state.toast=null;state.editing=false;state.hint=null;state.feedAll=false;state.layers={trails:true,streams:true,obs:true,cams:true};state.guide=0;state.openCard=null;window.scrollTo(0,0)}
+};
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-action]");
+  if(!t){if(state.pop&&!e.target.closest(".pop")){state.pop=null;render()}return}
+  const a=actions[t.dataset.action];if(!a)return;
+  e.preventDefault();a(t);render();
+  if(t.dataset.action==="zone"){const d=document.querySelector(".drawer .close");d&&d.focus()}
+  if(t.dataset.action==="card"&&state.openCard){const c=document.querySelector(".fi.open");c&&c.scrollIntoView({behavior:"smooth",block:"nearest"})}
+  if(t.dataset.action==="rec"&&window.innerWidth<900){const d=document.querySelector(".detail");d&&d.scrollIntoView({behavior:"smooth",block:"start"})}
+  if(t.dataset.action==="gomember"){const f=document.querySelector(".fi.is-new");f&&f.scrollIntoView({behavior:"smooth",block:"center"})}
+  });
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){if(state.zone){state.zone=null;render()}else if(state.pop){state.pop=null;render()}return}
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-action]")&&e.target.tagName!=="BUTTON"){e.preventDefault();e.target.dispatchEvent(new MouseEvent("click",{bubbles:true}))}
+});
+render();
+})();
+</script>
+</body>
+</html>
